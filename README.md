@@ -32,3 +32,5 @@ error response: {'status': <status>, 'error': <error>}
 # Testing
 
 run ./manage.py test
+
+# Note: Only supports n:  0 < n < 10^12
