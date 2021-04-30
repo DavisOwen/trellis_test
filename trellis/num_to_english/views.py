@@ -62,7 +62,7 @@ def num_to_english(request):
     except ValueError:
         return Response({'status': 'fail', 'error': 'incorrect number supplied'})
     if int_num >= 10**12 or int_num < 0:
-        return Response(['status': 'fail', 'error': 'only numbers between 0 and 10^12 supported'])
+        return Response({'status': 'fail', 'error': 'only numbers between 0 and 10^12 supported'})
     result = ''
     if int_num == 0:
         result = 'zero'
