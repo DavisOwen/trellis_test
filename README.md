@@ -20,7 +20,14 @@ submit requests to http://localhost:8000/
 
 auth/: POST - gets authentication token (use credentials for test user above
 
-num_to_english/: GET - converts number query param to english
+request: {'username': <username>, 'password': <password>}
+
+response: {'token': <token>}
+
+num_to_english?number=<number>: GET - converts number query param to english
+
+response: {'status': <status>, 'num_in_english': <num_in_english>}
+error response: {'status': <status>, 'error': <error>}
 
 # Testing
 
