@@ -6,7 +6,15 @@ password = test
 
 # Steps:
 
-run `./manage.py runserver`
+`python3 -m venv env`
+
+`source env/bin/activate`
+
+`pip install requirements.txt`
+
+`./manage.py runserver`
+
+# API
 
 submit requests to http://localhost:8000/
 

@@ -57,11 +57,11 @@ def num_to_english(request):
     num = request.GET.get('number')
     if not num:
         return Response({'status': 'fail', 'error': 'incorrect payload format'})
-    result = ''
     try:
         int_num = int(num)
     except ValueError:
         return Response({'status': 'fail', 'error': 'incorrect number supplied'})
+    result = ''
     if int_num == 0:
         result = 'zero'
     else:
