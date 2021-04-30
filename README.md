@@ -18,7 +18,7 @@ password = test
 
 submit requests to http://localhost:8000/
 
-auth/: POST - gets authentication token (use credentials for test user above
+auth/: POST - gets authentication token (use credentials for test user above)
 
 request: {'username': <username>, 'password': <password>}
 
