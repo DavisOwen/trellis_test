@@ -10,7 +10,7 @@ password = test
 
 `source env/bin/activate`
 
-`pip install requirements.txt`
+`pip install -r requirements.txt`
 
 `./manage.py runserver`
 
