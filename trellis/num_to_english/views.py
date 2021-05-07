@@ -8,9 +8,9 @@ class CustomUserThrottle(UserRateThrottle):
 
 group_of_three = {
     0: '',
-    1: 'thousand',
-    2: 'million',
-    3: 'billion',
+    1: ' thousand',
+    2: ' million',
+    3: ' billion',
 }
 
 singles = {
@@ -68,42 +68,39 @@ def num_to_english(request):
         result = 'zero'
     else:
         n = len(num)
-        # find out how many groups of 3's we can
-        # break number into
-        three_groups = n // 3
-        # find remainder after groups of 3
-        three_mod = n % 3
         # keeping track on if we are a "teen" number
         teen = False
         for i in range(n):
-            denom = 10**(n-1-i)
-            # integer division to get leftmost digit
-            remainder = int_num // denom
-            # subtract to remove leftmost digit
-            int_num -= (denom * remainder)
-            # we are at the double digits
+            curr_num = int(num[i])
+            # find out how many groups of 3's we can
+            # break number into
+            three_groups = ((n - 1) - i) // 3
+            # find remainder after groups of 3
+            three_mod = ((n - 1) - i) % 3
+            space = i > 0 and not (not teen and curr_num == 0) and result != ''
+            # hundreds
             if three_mod == 2:
-                if remainder > 1:
-                    result += doubles[remainder]
-                else:
+                if space:
+                    result += ' '
+                result += (singles[curr_num] + ' hundred') if curr_num > 0 else ''
+                three_mod = 3
+            # tens
+            elif three_mod == 1:
+                if curr_num > 1:
+                    if space:
+                        result += ' '
+                    result += doubles[curr_num]
+                elif curr_num == 1:
                     teen = True
             # single digits
-            elif three_mod == 1:
+            elif three_mod == 0:
+                if space:
+                    result += ' '
                 if teen:
-                    result += teens[remainder]
+                    result += teens[curr_num]
                     teen = False
                 else:
-                    result += singles[remainder]
-                if i != n - 1:
-                    result += ' '
+                    result += singles[curr_num]
                 # append group of three (thousand, million, etc.)
                 result += group_of_three[three_groups]
-                three_groups -= 1
-            # hundreds
-            elif three_mod == 0:
-                result += singles[remainder] + ' hundred'
-                three_mod = 3
-            three_mod -= 1
-            if i != n - 1 and not teen:
-                result += ' '
     return Response({'status': 'ok', 'num_in_english': result})
